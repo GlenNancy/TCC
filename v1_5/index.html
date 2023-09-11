@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      #map {
+        height: 100%;
+      }
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      /*function initMap() {
+        // Cria um novo mapa e define o centro e o zoom
+        var map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: -23.55052, lng: -46.633309 },
+          zoom: 13,
+        });
+
+        // Cria um objeto DirectionsService e chama o método route()
+        var directionsService = new google.maps.DirectionsService();
+        var directionsRenderer = new google.maps.DirectionsRenderer();
+        directionsRenderer.setMap(map);
+
+        var start = new google.maps.LatLng(-23.55052, -46.633309);
+        var end = new google.maps.LatLng(-23.563711, -46.654661);
+
+        var request = {
+          origin: start,
+          destination: end,
+          travelMode: google.maps.TravelMode.DRIVING,
+        };
+
+        directionsService.route(request, function (result, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            directionsRenderer.setDirections(result);
+          }
+        });
+      }*/
+      function initMap() {
+        // Cria um novo mapa e define o centro e o zoom
+        var map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: -23.55052, lng: -46.633309 },
+          zoom: 13,
+        });
+
+        // Cria um objeto DirectionsService e chama o método route()
+        var directionsService = new google.maps.DirectionsService();
+        var directionsRenderer = new google.maps.DirectionsRenderer();
+        directionsRenderer.setMap(map);
+
+        // Define as coordenadas dos pontos de partida e chegada para cada rota
+        var routeRequests = [
+          {
+            origin: new google.maps.LatLng(-23.55052, -46.633309),
+            destination: new google.maps.LatLng(-23.563711, -46.654661),
+            travelMode: "DRIVING",
+          },
+          {
+            origin: new google.maps.LatLng(-23.567366, -46.651536),
+            destination: new google.maps.LatLng(-23.541331, -46.669102),
+            travelMode: "DRIVING",
+          },
+        ];
+
+        // Itera sobre cada objeto de solicitação de rota e chama o método route() do DirectionsService
+        for (var i = 0; i < routeRequests.length; i++) {
+          directionsService.route(routeRequests[i], function (result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+              directionsRenderer.setDirections(result);
+            }
+          });
+        }
+
+        var directionsService = new google.maps.DirectionsService();
+        var directionsRenderer = new google.maps.DirectionsRenderer();
+        directionsRenderer.setMap(map);
+
+        var start = new google.maps.LatLng(-23.55052, -46.633309);
+        var end = new google.maps.LatLng(-23.563711, -46.654661);
+        var waypoint1 = new google.maps.LatLng(-23.542301, -46.641742);
+        var waypoint2 = new google.maps.LatLng(-23.551322, -46.648931);
+
+        var request = {
+          origin: start,
+          destination: end,
+          waypoints: [
+            {
+              location: waypoint1,
+              stopover: true,
+            },
+            {
+              location: waypoint2,
+              stopover: true,
+            },
+          ],
+          travelMode: "DRIVING",
+        };
+
+        directionsService.route(request, function (result, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            directionsRenderer.setDirections(result);
+          }
+        });
+      }
+    </script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2iFtgDH9oX3ud7Q-JdtVaWuY5hKN82cI&callback=initMap"
+      async
+      defer
+    ></script>
+  </body>
+</html>
